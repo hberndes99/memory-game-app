@@ -18,13 +18,14 @@ struct ContentView: View {
     @ObservedObject var myViewModel: EmojiMemoryGame
     
     var body: some View {
-        HStack {
-            ForEach(myViewModel.cards) { card in
-                CardView(card: card).onTapGesture(perform: {
-                    myViewModel.choose(card: card)
-                })
+        // replace HStack with a Grid
+        Grid(items: myViewModel.cards) { card in
+                CardView(card: card).onTapGesture {
+                    // could not have self
+                    self.myViewModel.choose(card: card)
+                }
             }
-        }.padding()
+        .padding()
     }
     
     

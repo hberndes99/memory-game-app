@@ -15,6 +15,8 @@
 		E455FC142668CD3600759D66 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455FC132668CD3600759D66 /* ContentView.swift */; };
 		E455FC162668CD4A00759D66 /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455FC152668CD4A00759D66 /* EmojiMemoryGame.swift */; };
 		E455FC182668CD5700759D66 /* memoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455FC172668CD5700759D66 /* memoryGame.swift */; };
+		E455FC1A26690C8C00759D66 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455FC1926690C8B00759D66 /* Grid.swift */; };
+		E455FC1C2669165300759D66 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455FC1B2669165300759D66 /* GridLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		E455FC132668CD3600759D66 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E455FC152668CD4A00759D66 /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
 		E455FC172668CD5700759D66 /* memoryGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = memoryGame.swift; sourceTree = "<group>"; };
+		E455FC1926690C8B00759D66 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = SOURCE_ROOT; };
+		E455FC1B2669165300759D66 /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 		E455FBFE2668CCF100759D66 /* MemorizeDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E455FC1926690C8B00759D66 /* Grid.swift */,
+				E455FC1B2669165300759D66 /* GridLayout.swift */,
 				E455FBFF2668CCF100759D66 /* AppDelegate.swift */,
 				E455FC012668CCF100759D66 /* SceneDelegate.swift */,
 				E455FC052668CCF700759D66 /* Assets.xcassets */,
@@ -156,6 +162,8 @@
 				E455FC142668CD3600759D66 /* ContentView.swift in Sources */,
 				E455FC182668CD5700759D66 /* memoryGame.swift in Sources */,
 				E455FC162668CD4A00759D66 /* EmojiMemoryGame.swift in Sources */,
+				E455FC1C2669165300759D66 /* GridLayout.swift in Sources */,
+				E455FC1A26690C8C00759D66 /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
