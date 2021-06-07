@@ -64,6 +64,15 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
+    mutating func newGameReset() {
+        print("wants new game")
+        for index in cards.indices {
+            cards[index].isFaceUp = false
+            cards[index].isMatched = false
+        }
+        cards.shuffle()
+    }
+    
     /*
     func index(of card: Card) -> Int {
         for index in 0..<self.cards.count {

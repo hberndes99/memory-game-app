@@ -19,6 +19,9 @@ struct ContentView: View {
     
     var body: some View {
         HStack {
+            Button("new game") {
+                myViewModel.newGame()
+            }
             ForEach(myViewModel.cards) { card in
                 CardView(card: card).onTapGesture(perform: {
                     myViewModel.choose(card: card)

@@ -26,6 +26,10 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
     
+    func newGame() {
+        myModel.newGameReset()
+    }
+    
     // this is what you gain from being an observable object
     // a publisher meaning it can publish to the world when something changes
     // view will be interested in this
