@@ -10,6 +10,16 @@ import SwiftUI
 // THIS IS THE VIEW
 // wants to reflect the current state of the model
 
+struct ProfilePage: View {
+    @ObservedObject var viewModel: EmojiMemoryGame
+    //var user: self.viewModel.player
+    
+    var body: some View {
+        Text("hi \(viewModel.player.name)")
+        Text("you have \(viewModel.player.points) points!")
+    }
+}
+
 struct ContentView: View {
     // a pointer to the class
     // everytime it sees this view model publish about changes
@@ -18,43 +28,48 @@ struct ContentView: View {
     @ObservedObject var myViewModel: EmojiMemoryGame
     
     var body: some View {
-        VStack {
-            Text("MY MEMORY GAME!").padding(.top)
-            Button("new game") {
-                myViewModel.newGame()
-            }
-            Text("My points: \(myViewModel.player.points)")
-            HStack {
-                ForEach(myViewModel.cards) { card in
-                    CardView(card: card).onTapGesture(perform: {
-                        myViewModel.choose(card: card)
+        NavigationView {
+            VStack {
+                Text("MY MEMORY GAME!").padding(.top)
+                Button("new game") {
+                    myViewModel.newGame()
+                }
+                HStack {
+                    Text("My points: \(myViewModel.player.points)")
+                    NavigationLink(destination: ProfilePage(viewModel: myViewModel)) {
+                        Text("Profile page")
+                    }
+                }
+                HStack {
+                    ForEach(myViewModel.cards) { card in
+                        CardView(card: card).onTapGesture(perform: {
+                            myViewModel.choose(card: card)
+                        })
+                    }
+                }.padding()
+                HStack {
+                    VStack {
+                        Text("🐶")
+                        Text("Animals")
+                    }.onTapGesture(perform: {
+                        myViewModel.themeChosen(theme: "animals")
+                    })
+                    VStack {
+                        Text("🍔")
+                        Text("Food")
+                    }.onTapGesture(perform: {
+                        myViewModel.themeChosen(theme: "food")
+                    })
+                    VStack {
+                        Text("😎")
+                        Text("Default")
+                    }.onTapGesture(perform: {
+                        myViewModel.themeChosen(theme: "default")
                     })
                 }
-            }.padding()
-            HStack {
-                VStack {
-                    Text("🐶")
-                    Text("Animals")
-                }.onTapGesture(perform: {
-                    myViewModel.themeChosen(theme: "animals")
-                })
-                VStack {
-                    Text("🍔")
-                    Text("Food")
-                }.onTapGesture(perform: {
-                    myViewModel.themeChosen(theme: "food")
-                })
-                VStack {
-                    Text("😎")
-                    Text("Default")
-                }.onTapGesture(perform: {
-                    myViewModel.themeChosen(theme: "default")
-                })
             }
         }
     }
-    
-    
 }
 
 struct CardView: View {
