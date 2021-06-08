@@ -12,6 +12,7 @@ import Foundation
 struct MemoryGame<CardContent> where CardContent: Equatable {
     // what does this model do, lets get the vars in place to describe what the game does
     var cards: Array<Card>
+    var player: Player
     
     // we need this for game play
     var indexOfTheOneAndOnlyFaceUpCard: Int? {
@@ -55,7 +56,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                     
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
-                    print("mATCH")
+                    player.points += 1
+                   
                 }
                 self.cards[chosenIndex].isFaceUp = true
             } else {
@@ -69,6 +71,17 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         for index in cards.indices {
             cards[index].isFaceUp = false
             cards[index].isMatched = false
+        }
+        cards.shuffle()
+    }
+    
+    mutating func changeTheme(emojis: Array<String>, cardContentFactory: (Int) -> CardContent) {
+        cards.removeAll()
+        for index in emojis.indices {
+            let content = cardContentFactory(index)
+            cards.append(Card(isFaceUp: false, isMatched: false, content: content, id: index*2))
+            cards.append(Card(isFaceUp: false, isMatched: false, content: content, id: index*2+1))
+        
         }
         cards.shuffle()
     }
@@ -93,6 +106,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             cards.append(Card(isFaceUp: false, isMatched: false, content: content, id: pairIndex*2))
         }
         cards.shuffle()
+        player = Player(points: 0)
     }
     
     
@@ -107,4 +121,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         var content: CardContent
         var id: Int
     }
+    
+    
+    struct Player {
+        var points: Int
+    }
 }
+
+
+
