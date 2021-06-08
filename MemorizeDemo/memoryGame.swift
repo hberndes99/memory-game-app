@@ -106,7 +106,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             cards.append(Card(isFaceUp: false, isMatched: false, content: content, id: pairIndex*2))
         }
         cards.shuffle()
-        player = Player(points: 0)
+        player = Player(points: 0, name: "harriette")
     }
     
     
@@ -125,6 +125,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     struct Player {
         var points: Int
+        var name: String
     }
 }
 
