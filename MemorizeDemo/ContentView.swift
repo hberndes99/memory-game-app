@@ -18,13 +18,40 @@ struct ContentView: View {
     @ObservedObject var myViewModel: EmojiMemoryGame
     
     var body: some View {
-        HStack {
-            ForEach(myViewModel.cards) { card in
-                CardView(card: card).onTapGesture(perform: {
-                    myViewModel.choose(card: card)
+        VStack {
+            Text("MY MEMORY GAME!").padding(.top)
+            Button("new game") {
+                myViewModel.newGame()
+            }
+            Text("My points: \(myViewModel.player.points)")
+            HStack {
+                ForEach(myViewModel.cards) { card in
+                    CardView(card: card).onTapGesture(perform: {
+                        myViewModel.choose(card: card)
+                    })
+                }
+            }.padding()
+            HStack {
+                VStack {
+                    Text("🐶")
+                    Text("Animals")
+                }.onTapGesture(perform: {
+                    myViewModel.themeChosen(theme: "animals")
+                })
+                VStack {
+                    Text("🍔")
+                    Text("Food")
+                }.onTapGesture(perform: {
+                    myViewModel.themeChosen(theme: "food")
+                })
+                VStack {
+                    Text("😎")
+                    Text("Default")
+                }.onTapGesture(perform: {
+                    myViewModel.themeChosen(theme: "default")
                 })
             }
-        }.padding()
+        }
     }
     
     

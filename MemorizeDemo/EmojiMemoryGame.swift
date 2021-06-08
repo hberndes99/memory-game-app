@@ -17,6 +17,7 @@ class EmojiMemoryGame: ObservableObject {
     // everytime this model changes it calls objectwillchange.send() to broadcast the change
     
    @Published private var myModel: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+
     
     //static func makes it a function on the type
     static func createMemoryGame() -> MemoryGame<String> {
@@ -24,6 +25,51 @@ class EmojiMemoryGame: ObservableObject {
         return MemoryGame<String>(numberOfPairsOfCards: emojis.count) { pairIndex in
             return emojis[pairIndex]
         }
+    }
+    
+    // CHANGE THIS TO CLEANER CODE
+    /*
+    func animalThemeChosen() {
+        let emojis: Array<String> = ["🐹","🦁","🐸","🐥"]
+        myModel.changeTheme(emojis: emojis){ index in
+            return emojis[index]
+        }
+    }
+    
+    func foodThemeChosen() {
+        let emojis: Array<String> = ["🍔","🥝","🍱","🥦"]
+        myModel.changeTheme(emojis: emojis){ index in
+            return emojis[index]
+        }
+    }
+ 
+    func defaultThemeChosen() {
+        let emojis: Array<String> = ["😡", "😎", "💩"]
+        myModel.changeTheme(emojis: emojis){ index in
+            return emojis[index]
+        }
+    }
+ */
+    
+    var themeEmojis: Array<String> = ["😡", "😎", "💩"]
+    
+    func themeChosen(theme: String) {
+        if theme == "animals" {
+            themeEmojis = ["🐹","🦁","🐸","🐥"]
+        }
+        else if theme == "food" {
+            themeEmojis  = ["🍔","🥝","🍱","🥦"]
+        }
+        else {
+            themeEmojis = ["😡", "😎", "💩"]
+        }
+        myModel.changeTheme(emojis: themeEmojis){ index in
+            return themeEmojis[index]
+        }
+    }
+    
+    func newGame() {
+        myModel.newGameReset()
     }
     
     // this is what you gain from being an observable object
@@ -35,6 +81,10 @@ class EmojiMemoryGame: ObservableObject {
     // mark access to the Model
     var cards: Array<MemoryGame<String>.Card> {
         return myModel.cards
+    }
+    
+    var player: MemoryGame<String>.Player {
+        return myModel.player
     }
     // MARK intent(s)
     
