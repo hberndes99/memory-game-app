@@ -17,6 +17,8 @@ class EmojiMemoryGame: ObservableObject {
     // everytime this model changes it calls objectwillchange.send() to broadcast the change
     
    @Published private var myModel: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    
+    @Published var username = ""
 
     
     //static func makes it a function on the type
@@ -72,6 +74,9 @@ class EmojiMemoryGame: ObservableObject {
         myModel.newGameReset()
     }
     
+    func createplayer(username: String) {
+        myModel.createPlayer(username: username)
+    }
     // this is what you gain from being an observable object
     // a publisher meaning it can publish to the world when something changes
     // view will be interested in this

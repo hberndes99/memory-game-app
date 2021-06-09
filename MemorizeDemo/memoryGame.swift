@@ -106,7 +106,19 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             cards.append(Card(isFaceUp: false, isMatched: false, content: content, id: pairIndex*2))
         }
         cards.shuffle()
-        player = Player(points: 0, name: "harriette")
+        player = Player(points: 0, name: "default")
+    }
+    
+
+    mutating func createPlayer(username: String) {
+        print("make user for \(username)")
+        if username.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 {
+            self.player = Player(points: 0, name: username)
+        }
+        else {
+            print("no name entered")
+            self.player = Player(points: 0, name: "default")
+        }
     }
     
     
@@ -124,8 +136,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     
     struct Player {
-        var points: Int
-        var name: String
+        var points: Int = 0
+        var name: String = "no name provided"
     }
 }
 

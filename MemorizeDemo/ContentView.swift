@@ -26,7 +26,7 @@ struct GamePage: View {
     
     var body: some View {
             VStack {
-                Text("MY MEMORY GAME!").padding(.top)
+                Text("\(myViewModel.player.name)'s MEMORY GAME!").padding(.top)
                 Button("new game") {
                     myViewModel.newGame()
                 }
@@ -74,17 +74,21 @@ struct ContentView: View {
     // then everytime alterations are published it will redraw
     @ObservedObject var myViewModel: EmojiMemoryGame
     
-    @State private var userName: String = ""
+    //@State private var userName: String = ""
+    @State private var userCreated: Bool = false
     
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: GamePage(myViewModel: myViewModel)) {
-                    Text("click to play")
-                }
-                TextField("What is your name?", text: $userName).textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("What is your name?", text: $myViewModel.username).textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(50)
-                Text("your name is \(userName)")
+                NavigationLink(destination: GamePage(myViewModel: myViewModel), isActive: $userCreated) {
+                    Button("play!") {
+                        myViewModel.createplayer(username: myViewModel.username)
+                        userCreated = true
+                        
+                    }
+                }
             }
             
         }
