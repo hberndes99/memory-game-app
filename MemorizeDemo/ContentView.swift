@@ -11,7 +11,7 @@ import SwiftUI
 // wants to reflect the current state of the model
 
 struct ProfilePage: View {
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @EnvironmentObject var viewModel: EmojiMemoryGame
     //var user: self.viewModel.player
     
     var body: some View {
@@ -22,7 +22,7 @@ struct ProfilePage: View {
 
 struct GamePage: View {
     
-    @ObservedObject var myViewModel: EmojiMemoryGame
+    @EnvironmentObject var myViewModel: EmojiMemoryGame
     
     var body: some View {
             VStack {
@@ -32,7 +32,7 @@ struct GamePage: View {
                 }
                 HStack {
                     Text("My points: \(myViewModel.player.points)")
-                    NavigationLink(destination: ProfilePage(viewModel: myViewModel)) {
+                    NavigationLink(destination: ProfilePage()) {
                         Text("Profile page")
                     }
                 }
@@ -72,7 +72,8 @@ struct ContentView: View {
     // everytime it sees this view model publish about changes
     // by adding the observed object tag it does this
     // then everytime alterations are published it will redraw
-    @ObservedObject var myViewModel: EmojiMemoryGame
+    //@ObservedObject var myViewModel: EmojiMemoryGame
+    @StateObject var myViewModel: EmojiMemoryGame
     
     //@State private var userName: String = ""
     @State private var userCreated: Bool = false
@@ -82,7 +83,7 @@ struct ContentView: View {
             VStack {
                 TextField("What is your name?", text: $myViewModel.username).textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(50)
-                NavigationLink(destination: GamePage(myViewModel: myViewModel), isActive: $userCreated) {
+                NavigationLink(destination: GamePage(), isActive: $userCreated) {
                     Button("play!") {
                         myViewModel.createplayer(username: myViewModel.username)
                         userCreated = true
@@ -91,7 +92,7 @@ struct ContentView: View {
                 }
             }
             
-        }
+        }.environmentObject(myViewModel)
     }
 
 }
