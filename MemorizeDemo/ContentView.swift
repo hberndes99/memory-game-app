@@ -11,7 +11,7 @@ import SwiftUI
 // wants to reflect the current state of the model
 
 struct ProfilePage: View {
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @EnvironmentObject var viewModel: EmojiMemoryGame
     //var user: self.viewModel.player
     
     var body: some View {
@@ -20,23 +20,19 @@ struct ProfilePage: View {
     }
 }
 
-struct ContentView: View {
-    // a pointer to the class
-    // everytime it sees this view model publish about changes
-    // by adding the observed object tag it does this
-    // then everytime alterations are published it will redraw
-    @ObservedObject var myViewModel: EmojiMemoryGame
+struct GamePage: View {
+    
+    @EnvironmentObject var myViewModel: EmojiMemoryGame
     
     var body: some View {
-        NavigationView {
             VStack {
-                Text("MY MEMORY GAME!").padding(.top)
+                Text("\(myViewModel.player.name)'s MEMORY GAME!").padding(.top)
                 Button("new game") {
                     myViewModel.newGame()
                 }
                 HStack {
                     Text("My points: \(myViewModel.player.points)")
-                    NavigationLink(destination: ProfilePage(viewModel: myViewModel)) {
+                    NavigationLink(destination: ProfilePage()) {
                         Text("Profile page")
                     }
                 }
@@ -68,8 +64,37 @@ struct ContentView: View {
                     })
                 }
             }
-        }
     }
+}
+
+struct ContentView: View {
+    // a pointer to the class
+    // everytime it sees this view model publish about changes
+    // by adding the observed object tag it does this
+    // then everytime alterations are published it will redraw
+    //@ObservedObject var myViewModel: EmojiMemoryGame
+    @StateObject var myViewModel: EmojiMemoryGame
+    
+    //@State private var userName: String = ""
+    @State private var userCreated: Bool = false
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                TextField("What is your name?", text: $myViewModel.username).textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(50)
+                NavigationLink(destination: GamePage(), isActive: $userCreated) {
+                    Button("play!") {
+                        myViewModel.createplayer(username: myViewModel.username)
+                        userCreated = true
+                        
+                    }
+                }
+            }
+            
+        }.environmentObject(myViewModel)
+    }
+
 }
 
 struct CardView: View {
