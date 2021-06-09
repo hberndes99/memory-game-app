@@ -20,15 +20,11 @@ struct ProfilePage: View {
     }
 }
 
-struct ContentView: View {
-    // a pointer to the class
-    // everytime it sees this view model publish about changes
-    // by adding the observed object tag it does this
-    // then everytime alterations are published it will redraw
+struct GamePage: View {
+    
     @ObservedObject var myViewModel: EmojiMemoryGame
     
     var body: some View {
-        NavigationView {
             VStack {
                 Text("MY MEMORY GAME!").padding(.top)
                 Button("new game") {
@@ -68,8 +64,24 @@ struct ContentView: View {
                     })
                 }
             }
+    }
+}
+
+struct ContentView: View {
+    // a pointer to the class
+    // everytime it sees this view model publish about changes
+    // by adding the observed object tag it does this
+    // then everytime alterations are published it will redraw
+    @ObservedObject var myViewModel: EmojiMemoryGame
+    
+    var body: some View {
+        NavigationView {
+            NavigationLink(destination: GamePage(myViewModel: myViewModel)) {
+                Text("click to play")
+            }
         }
     }
+
 }
 
 struct CardView: View {
