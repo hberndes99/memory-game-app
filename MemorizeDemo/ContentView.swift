@@ -74,11 +74,19 @@ struct ContentView: View {
     // then everytime alterations are published it will redraw
     @ObservedObject var myViewModel: EmojiMemoryGame
     
+    @State private var userName: String = ""
+    
     var body: some View {
         NavigationView {
-            NavigationLink(destination: GamePage(myViewModel: myViewModel)) {
-                Text("click to play")
+            VStack {
+                NavigationLink(destination: GamePage(myViewModel: myViewModel)) {
+                    Text("click to play")
+                }
+                TextField("What is your name?", text: $userName).textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(50)
+                Text("your name is \(userName)")
             }
+            
         }
     }
 
